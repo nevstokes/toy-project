@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+         bootstrap="tests_autoload.php"
+>
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <ini name="memory_limit" value="-1" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Novamedia Test Suite">
+            <directory>./src/Novamedia/Bundle/*/Tests</directory>
+            <directory>./src/Novamedia/Component/*/Tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./src/Novamedia/</directory>
+            <exclude>
+                <directory>./src/Novamedia/Bundle/*/vendor</directory>
+                <directory>./src/Novamedia/Component/*/vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+        <log type="coverage-html" target="test-reports/coverage" charset="UTF-8" yui="true"
+             highlight="true"/>
+        <log type="junit" target="test-reports/junit.xml"/>
+    </logging>
+
+</phpunit>

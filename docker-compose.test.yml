@@ -1,0 +1,4 @@
+# Docker Hub auto test
+sut:
+  image: nginx:mainline-alpine
+  command: make test

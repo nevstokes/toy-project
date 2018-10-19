@@ -1,0 +1,6 @@
+*.dist
+.gitignore
+docker-compose*.yml
+Makefile*
+README.md
+var

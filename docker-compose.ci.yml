@@ -1,0 +1,10 @@
+# Development configuration
+version: '2.4'
+
+# sqlite driver for db testing
+services:
+  app:
+    ports:
+      - 80
+    environment:
+      env: ${ENV:-dev}

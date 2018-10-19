@@ -1,0 +1,21 @@
+# Shared base configuration
+version: '2.4'
+
+services:
+  app:
+    image: php:fpm@sha256:7159d2ecf99cef8b14cbc5f67cb73d0a1ebc3bbe9ed4d6fa345789d04b50263c
+
+  config:
+    image: hashicorp/consul-template:alpine
+
+  db:
+    image: postgres:alpine@sha256:295a08ddd9efa1612c46033f0b96c3976f80f49c7ce29e05916b0af557806117
+
+  cache:
+    image: redis:alpine@sha256:2953e537b8eaa5120855285497d4f936d9f02a16480a9d76e8ba014dc3998704
+
+  secrets:
+    image: vault@sha256:ffadbbdfa87d1c7a3b7095efb3127099df320676fae54c9054f8006231bda78a
+
+  webserver:
+    image: nginx:mainline-alpine@sha256:ae5da813f8ad7fa785d7668f0b018ecc8c3a87331527a61d83b3b5e816a0f03c

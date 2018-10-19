@@ -1,0 +1,63 @@
+# Development configuration
+# Map random ephemeral ports
+version: '2.4'
+
+services:
+  app:
+    environment:
+      ENV: ${ENV:-dev}
+    depends_on:
+      db:
+        condition: service_started
+      secrets:
+        condition: service_healthy
+    ports:
+      - 9000
+    volumes:
+      - .:/var/www
+    working_dir: /var/www
+    healthcheck:
+      test: exit 0
+
+  cache:
+    ports:
+      - 6379
+
+  db:
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - 5432
+    depends_on:
+      secrets:
+        condition: service_healthy
+
+  secrets:
+    cap_add:
+      - IPC_LOCK
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASS}
+      VAULT_ADDR: http://0.0.0.0:8200
+    volumes:
+      - ./docker/dev/vault/init.sh:/init.sh
+#    entrypoint: /init.sh
+    healthcheck:
+      test: vault status
+    ports:
+      - 8200
+
+  config:
+    depends_on:
+      secrets:
+        condition: service_healthy
+
+  webserver:
+    ports:
+      - 80
+    depends_on:
+      app:
+        condition: service_healthy
