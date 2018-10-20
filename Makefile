@@ -1,7 +1,7 @@
 .PHONY: help dev up up-% down down-% clean check _check_% test build audit outdated %_cache
 .DEFAULT_GOAL := help
 
-include Makefile.setup
+include Makefile.config
 
 # Generate image name if unsupplied and expose for hook scripts
 export IMAGE_NAME ?= $(VENDOR)/$(DOCKER_REPO)
